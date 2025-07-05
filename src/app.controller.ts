@@ -1,6 +1,16 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { AppService } from './app.service';
-import { App, AppStatus } from '@app/app.entity';
+import { App } from '@app/app.entity';
 
 @Controller('apps')
 export class AppController {
@@ -17,12 +27,17 @@ export class AppController {
   }
 
   @Get(':releaseName')
-  async findOne(@Param('releaseName') releaseName: string): Promise<App | null> {
+  async findOne(
+    @Param('releaseName') releaseName: string,
+  ): Promise<App | null> {
     return this.appService.findOne(releaseName);
   }
 
   @Put(':releaseName')
-  async update(@Param('releaseName') releaseName: string, @Body() appData: Partial<App>): Promise<App | null> {
+  async update(
+    @Param('releaseName') releaseName: string,
+    @Body() appData: Partial<App>,
+  ): Promise<App | null> {
     return this.appService.update(releaseName, appData);
   }
 

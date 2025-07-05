@@ -23,13 +23,19 @@ export class AppService {
     return this.appRepository.findOne({ where: { releaseName } });
   }
 
-  async update(releaseName: string, appData: Partial<App>): Promise<App | null> {
+  async update(
+    releaseName: string,
+    appData: Partial<App>,
+  ): Promise<App | null> {
     await this.appRepository.update({ releaseName }, appData);
     return this.appRepository.findOne({ where: { releaseName } });
   }
 
   async remove(releaseName: string): Promise<void> {
     // Instead of deleting, we update the status to 'deleted'
-    await this.appRepository.update({ releaseName }, { status: AppStatus.DELETED });
+    await this.appRepository.update(
+      { releaseName },
+      { status: AppStatus.DELETED },
+    );
   }
 }
